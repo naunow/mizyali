@@ -5,12 +5,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mizyaliapp/configs/AppShadows.dart';
 import 'package:mizyaliapp/screens/calender/calender.dart';
 import 'package:mizyaliapp/screens/home/home.dart';
+import 'package:mizyaliapp/screens/home/widgets/plant_card.dart';
+import 'package:mizyaliapp/screens/splash_screen/splash_screen.dart';
 
-//void main() {
-//  debugPaintSizeEnabled = false;
-//  runApp(MyApp());
-//}
-void main() => runApp(MyApp());
+void main() {
+  debugPaintSizeEnabled = false;
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -77,47 +78,44 @@ class HomePath extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: 2,
+        length: _tabs().length,
         child: Scaffold(
             appBar: AppBar(
-              elevation: 10,
-              actions: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.add),
-                  color: AppColors.black,
-                  onPressed: () {},
-                ),
-                IconButton(
-                  icon: Icon(Icons.settings),
-                  color: AppColors.black,
-                  onPressed: () {},
-                ),
-              ],
-              bottom: TabBar(
-                isScrollable: true,
-                unselectedLabelStyle: TextStyle(fontSize: 8),
-                labelStyle: TextStyle(
-                    fontSize: 20,
-                    letterSpacing: 8.0,
-                    shadows: AppShadows.font_shadow,
-                    fontWeight: FontWeight.w300),
-                tabs: [
-                  Tab(
-                    text: 'HOME',
-                  ),
-                  Tab(
-                    text: 'CALENDER',
-                  ),
+              flexibleSpace: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  TabBar(
+                    isScrollable: true,
+                    unselectedLabelStyle: TextStyle(fontSize: 8),
+                    labelStyle: TextStyle(
+                        fontSize: 20,
+                        letterSpacing: 8.0,
+                        shadows: AppShadows.font_shadow,
+                        fontWeight: FontWeight.w300),
+                    tabs: _tabs(),
+                  )
                 ],
               ),
             ),
             body: TabBarView(
-              children: <Widget>[
-                Home(),
-                Calender(),
-              ],
-            )));
+              children: _tabBarViews(),
+            ))
+    );
   }
+}
+
+List<Tab> _tabs() {
+  return [
+    Tab(text: 'HOME'),
+    Tab(text: 'CALENDER'),
+  ];
+}
+
+List<Widget> _tabBarViews() {
+  return [
+    Home(),
+    Calender(),
+  ];
 }
 
 

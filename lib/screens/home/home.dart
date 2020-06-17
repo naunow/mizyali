@@ -14,15 +14,15 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        padding: EdgeInsets.all(36.0),
+        padding: EdgeInsets.symmetric(vertical :36.0),
         child: Center(
           child: Column(
             children: <Widget>[
-              PlantCard(),
+              PlantCard(imagePath: 'assets/images/cactus.jpg',),
               SizedBox(height: 26,),
-              PlantCard(),
+              PlantCard(imagePath: 'assets/images/squareplant.jpg',),
               SizedBox(height: 26,),
-              PlantCard(),
+              PlantCard(imagePath: 'assets/images/cactus.jpg',),
           ],),
         ),
       ),
