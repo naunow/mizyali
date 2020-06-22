@@ -5,11 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mizyaliapp/configs/AppShadows.dart';
 import 'package:mizyaliapp/screens/calender/calender.dart';
 import 'package:mizyaliapp/screens/home/home.dart';
-import 'package:mizyaliapp/screens/home/widgets/plant_card.dart';
-import 'package:mizyaliapp/screens/splash_screen/splash_screen.dart';
 
 void main() {
-  debugPaintSizeEnabled = false;
+  debugPaintSizeEnabled = true;
   runApp(MyApp());
 }
 

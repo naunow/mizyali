@@ -15,13 +15,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: 150,
-        width: 150,
-        child: CycleChart(_cycleChartData(WateringCycle()..reminderTitle = 'watering'..reminderCycleDays=5), animate: true),
-      ),);
-
-    return Scaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         padding: EdgeInsets.symmetric(vertical :36.0),
@@ -117,27 +110,4 @@ List<WateringCycle> _getWateringCycle({int plantId}) {
   var searchedList = wateringCycleList.where((x) => x.plantId == plantId).toList();
 
   return searchedList;
-}
-
-List<charts.Series<WateringCycle, int>> _cycleChartData(WateringCycle cycle){
-  var data = [
-    WateringCycle()
-      ..reminderCycleDays = cycle.reminderCycleDays
-      ..reminderTitle = cycle.reminderTitle,
-    WateringCycle()
-      ..reminderCycleDays = 2
-      ..reminderTitle = cycle.reminderTitle,
-  ];
-
-  var chart = [
-    charts.Series<WateringCycle, int>(
-      id: 'id',
-      data: data,
-      domainFn: (WateringCycle cycle, _) => cycle.reminderCycleDays,
-      measureFn: (WateringCycle cycle, _) => cycle.reminderCycleDays,
-      colorFn: (__,_) => charts.ColorUtil.fromDartColor(AppColors.orange),
-    )
-  ];
-
-  return chart;
 }

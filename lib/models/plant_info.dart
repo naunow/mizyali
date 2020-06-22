@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 class Plant{
   int id;
   String memo;
@@ -12,4 +14,5 @@ class WateringCycle{
   int plantId;
   String reminderTitle;
   int reminderCycleDays;
+  Color color;
 }
