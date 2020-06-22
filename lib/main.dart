@@ -22,33 +22,33 @@ class MyApp extends StatelessWidget {
           Theme.of(context)
               .textTheme
               .copyWith(
-            title: TextStyle(
+            headline6: TextStyle(
               // tab bar
                 fontSize: 20,
                 letterSpacing: 8.0,
                 shadows: AppShadows.font_shadow,
                 fontWeight: FontWeight.w400),
-            display1: TextStyle(
+            headline4: TextStyle(
               // card plant name
               fontSize: 18,
               fontWeight: FontWeight.w300,
             ),
-            body1: TextStyle(
+            bodyText2: TextStyle(
               // card description
               fontSize: 16,
               fontWeight: FontWeight.w300,
             ),
-            display2: TextStyle(
+            headline3: TextStyle(
               // chart label
               fontSize: 12,
               fontWeight: FontWeight.w400,
             ),
-            display3: TextStyle(
+            headline2: TextStyle(
               // chart days
               fontSize: 20,
               fontWeight: FontWeight.w500,
             ),
-            display4: TextStyle(
+            headline1: TextStyle(
               // calender card
               fontSize: 14,
               fontWeight: FontWeight.w400,

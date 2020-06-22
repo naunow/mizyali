@@ -1,29 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:mizyaliapp/models/plant_info.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
-class ChartArea extends StatefulWidget {
-  @override
-  _ChartAreaState createState() => _ChartAreaState();
-}
+class ChartArea extends StatelessWidget {
+  final List<WateringCycle> wateringCycleList;
 
-class _ChartAreaState extends State<ChartArea> {
+  const ChartArea({Key key, this.wateringCycleList}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: <Widget>[
-        Column(children: <Widget>[
-          Placeholder(fallbackHeight: 58, fallbackWidth: 58,),
-          Text('Water', style: textTheme.display2,)
-        ],),
-        Column(children: <Widget>[
-          Placeholder(fallbackHeight: 58, fallbackWidth: 58,),
-          Text('Fertiliser', style: textTheme.display2,)
-        ],),
-        Column(children: <Widget>[
-          Placeholder(fallbackHeight: 58, fallbackWidth: 58,),
-          Text('Cleaning', style: textTheme.display2,)
-        ],),
-      ],);
+      children: _wateringCycleInfo(wateringCycleList, context),
+      );
+  }
+}
+
+_wateringCycleInfo(List<WateringCycle> wateringCycleList, BuildContext context){
+
+  List<Widget> result = [];
+  wateringCycleList.forEach((cycle) {
+    result.addAll([
+      Column(children: <Widget>[
+        //Placeholder(fallbackHeight: 58, fallbackWidth: 58,),
+        Text(cycle.reminderTitle, style: Theme.of(context).textTheme.headline3,)
+      ],),
+    ]);
+  });
+
+  return result;
+}
+
+class WateringChart extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }

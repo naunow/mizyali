@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:mizyaliapp/configs/AppColors.dart';
 import 'package:mizyaliapp/configs/AppShadows.dart';
+import 'package:mizyaliapp/models/plant_info.dart';
 import 'package:mizyaliapp/screens/home/widgets/plant_info.dart';
 import 'package:mizyaliapp/screens/home/widgets/plant_pic.dart';
 import 'package:mizyaliapp/screens/home/widgets/chart_area.dart';
 
 class PlantCard extends StatefulWidget {
-  final String imagePath;
+  final Plant plantInfo;
 
-  const PlantCard({Key key, this.imagePath}) : super(key: key);
+  const PlantCard({Key key, this.plantInfo}) : super(key: key);
 
   @override
   _PlantCardState createState() => _PlantCardState();
@@ -33,11 +34,11 @@ class _PlantCardState extends State<PlantCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              PlantPic(imagePath: widget.imagePath),
-              PlantInfo(),
+              PlantPic(imagePath: widget.plantInfo.imagePath),
+              PlantInfoDisplay(plantInfo: widget.plantInfo),
             ],
           ),
-          ChartArea(),
+          ChartArea(wateringCycleList: widget.plantInfo.wateringCycleList,),
         ],
       ),
     );

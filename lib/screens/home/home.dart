@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mizyaliapp/configs/AppColors.dart';
+import 'package:mizyaliapp/models/plant_info.dart';
+import 'package:mizyaliapp/screens/home/widgets/chart.dart';
 import 'package:mizyaliapp/screens/home/widgets/plant_card.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
 class Home extends StatefulWidget {
   @override
@@ -10,6 +14,12 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        height: 150,
+        width: 150,
+        child: CycleChart(_cycleChartData(WateringCycle()..reminderTitle = 'watering'..reminderCycleDays=5), animate: true),
+      ),);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -17,16 +27,117 @@ class _HomeState extends State<Home> {
         padding: EdgeInsets.symmetric(vertical :36.0),
         child: Center(
           child: Column(
-            children: <Widget>[
-              PlantCard(imagePath: 'assets/images/cactus.jpg',),
-              SizedBox(height: 26,),
-              PlantCard(imagePath: 'assets/images/squareplant.jpg',),
-              SizedBox(height: 26,),
-              PlantCard(imagePath: 'assets/images/cactus.jpg',),
-          ],),
+            children:
+              _getPlantCard(),
+          ),
         ),
       ),
     );
   }
 }
 
+_getPlantCard(){
+  var plantCardList = _getTestPlantInfo();
+
+  List<Widget> plantCard = [];
+  plantCardList.forEach((plantInfo) {
+    plantCard.addAll([
+      PlantCard(plantInfo: plantInfo),
+      SizedBox(height: 26),
+    ]);
+  });
+
+  return plantCard;
+}
+
+List<Plant> _getTestPlantInfo(){
+  var plantList = ([
+    Plant()
+      ..id = 1
+      ..name = 'Atom'
+      ..memo = 'This is a test memo.'
+      ..startDate = '20200101'
+      ..imagePath = 'assets/images/squareplant.jpg'
+      ..wateringCycleList = _getWateringCycle(plantId: 1),
+    Plant()
+      ..id = 2
+      ..name = 'Takiyon'
+      ..memo = 'My parents gave it to me on my birthday.'
+      ..startDate = '20200214'
+      ..imagePath = 'assets/images/cactus.jpg'
+      ..wateringCycleList = _getWateringCycle(plantId: 2),
+    Plant()
+      ..id = 3
+      ..name = 'Strawberry'
+      ..memo = 'hayaku tabetai!'
+      ..startDate = '20191225'
+      ..imagePath = 'assets/images/squareplant.jpg'
+      ..wateringCycleList = _getWateringCycle(plantId: 1),
+    Plant()
+      ..id = 4
+      ..name = 'tomato'
+      ..memo = 'My parents gave it to me on my birthday. My parents gave it to me on my birthday. My parents gave it to me on my birthday.'
+      ..startDate = '19900101'
+      ..imagePath = 'assets/images/cactus.jpg'
+      ..wateringCycleList = _getWateringCycle(plantId: 2),
+  ]);
+
+  return plantList;
+}
+
+List<WateringCycle> _getWateringCycle({int plantId}) {
+  var wateringCycleList = ([
+    WateringCycle()
+      ..id = 1
+      ..plantId = 1
+      ..reminderTitle = 'Watering'
+      ..reminderCycleDays = 5,
+    WateringCycle()
+      ..id = 2
+      ..plantId = 1
+      ..reminderTitle = 'Fertilize Soil'
+      ..reminderCycleDays = 7,
+    WateringCycle()
+      ..id = 3
+      ..plantId = 1
+      ..reminderTitle = 'Cleaning'
+      ..reminderCycleDays = 3,
+    WateringCycle()
+      ..id = 4
+      ..plantId = 2
+      ..reminderTitle = 'Trim Plant'
+      ..reminderCycleDays = 10,
+    WateringCycle()
+      ..id = 5
+      ..plantId = 2
+      ..reminderTitle = 'Fertilizer'
+      ..reminderCycleDays = 6,
+  ]);
+
+  var searchedList = wateringCycleList.where((x) => x.plantId == plantId).toList();
+
+  return searchedList;
+}
+
+List<charts.Series<WateringCycle, int>> _cycleChartData(WateringCycle cycle){
+  var data = [
+    WateringCycle()
+      ..reminderCycleDays = cycle.reminderCycleDays
+      ..reminderTitle = cycle.reminderTitle,
+    WateringCycle()
+      ..reminderCycleDays = 2
+      ..reminderTitle = cycle.reminderTitle,
+  ];
+
+  var chart = [
+    charts.Series<WateringCycle, int>(
+      id: 'id',
+      data: data,
+      domainFn: (WateringCycle cycle, _) => cycle.reminderCycleDays,
+      measureFn: (WateringCycle cycle, _) => cycle.reminderCycleDays,
+      colorFn: (__,_) => charts.ColorUtil.fromDartColor(AppColors.orange),
+    )
+  ];
+
+  return chart;
+}
