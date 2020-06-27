@@ -6,8 +6,9 @@ import 'package:charts_flutter/flutter.dart' as charts;
 class CycleChart extends StatelessWidget {
   final List<charts.Series> seriesList;
   final bool animate;
+  final WateringCycle cycle;
 
-  CycleChart(this.seriesList, {this.animate});
+  CycleChart(this.seriesList, {this.animate, this.cycle});
 
   /// Creates a [PieChart] with sample data and no transition.
   factory CycleChart.withSampleData() {
@@ -29,7 +30,7 @@ class CycleChart extends StatelessWidget {
                 arcWidth: 20, arcRatio: 0.2,)),
           Center(
             child: Text(
-              '7',
+              '${cycle.reminderCycleDays - 1}',
               style: TextStyle(
                 fontSize: 30.0,
                 color: AppColors.black,

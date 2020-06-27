@@ -7,7 +7,7 @@ import 'package:mizyaliapp/screens/calender/calender.dart';
 import 'package:mizyaliapp/screens/home/home.dart';
 
 void main() {
-  debugPaintSizeEnabled = true;
+  debugPaintSizeEnabled = false;
   runApp(MyApp());
 }
 

@@ -30,7 +30,7 @@ _wateringCycleInfo(List<WateringCycle> wateringCycleList, BuildContext context){
         Container(width: size.width / 4,
           height: size.width / 4,
           color: AppColors.grey,
-          child: CycleChart.withSampleData(),),
+          child: CycleChart(_chartSeries(cycle),animate: false, cycle: cycle,),),
         Text(cycle.reminderTitle, style: Theme.of(context).textTheme.headline3,)
       ],),
     ]);
@@ -42,11 +42,11 @@ _wateringCycleInfo(List<WateringCycle> wateringCycleList, BuildContext context){
 List<charts.Series<WateringCycle, int>> _chartSeries(WateringCycle cycle){
   var data = [
     WateringCycle()
-      ..reminderCycleDays = 8
+      ..reminderCycleDays = cycle.reminderCycleDays
       ..reminderTitle = 'title 2'
-      ..color = AppColors.orange,
+      ..color = cycle.color,
     WateringCycle()
-    ..reminderCycleDays = 2
+    ..reminderCycleDays = cycle.reminderCycleDays - 2
     ..reminderTitle = 'title 2'
     ..color = AppColors.grey,
   ];

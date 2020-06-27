@@ -84,27 +84,32 @@ List<WateringCycle> _getWateringCycle({int plantId}) {
       ..id = 1
       ..plantId = 1
       ..reminderTitle = 'Watering'
-      ..reminderCycleDays = 5,
+      ..reminderCycleDays = 5
+      ..color = AppColors.blue,
     WateringCycle()
       ..id = 2
       ..plantId = 1
       ..reminderTitle = 'Fertilize Soil'
-      ..reminderCycleDays = 7,
+      ..reminderCycleDays = 7
+      ..color = AppColors.orange,
     WateringCycle()
       ..id = 3
       ..plantId = 1
       ..reminderTitle = 'Cleaning'
-      ..reminderCycleDays = 3,
+      ..reminderCycleDays = 3
+      ..color = AppColors.purple,
     WateringCycle()
       ..id = 4
       ..plantId = 2
       ..reminderTitle = 'Trim Plant'
-      ..reminderCycleDays = 10,
+      ..reminderCycleDays = 10
+      ..color = AppColors.blue,
     WateringCycle()
       ..id = 5
       ..plantId = 2
       ..reminderTitle = 'Fertilizer'
-      ..reminderCycleDays = 6,
+      ..reminderCycleDays = 6
+      ..color = AppColors.orange,
   ]);
 
   var searchedList = wateringCycleList.where((x) => x.plantId == plantId).toList();
