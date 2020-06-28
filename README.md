@@ -17,4 +17,4 @@ samples, guidance on mobile development, and a full API reference.
 
 ## reference
 
-(Figma)[https://www.figma.com/file/Nc5cqFK2Z6inkUzDDT6dJb/MizYali-App]
+[Figma](https://www.figma.com/file/Nc5cqFK2Z6inkUzDDT6dJb/MizYali-App)
