@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mizyaliapp/configs/AppColors.dart';
 import 'package:mizyaliapp/models/plant_info.dart';
-import 'package:mizyaliapp/screens/home/widgets/chart.dart';
 import 'package:mizyaliapp/screens/home/widgets/plant_card.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
