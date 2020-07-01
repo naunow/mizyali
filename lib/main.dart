@@ -4,6 +4,7 @@ import 'package:mizyaliapp/configs/AppColors.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mizyaliapp/configs/AppShadows.dart';
 import 'package:mizyaliapp/screens/calender/calender.dart';
+import 'package:mizyaliapp/screens/create/create.dart';
 import 'package:mizyaliapp/screens/home/home.dart';
 
 void main() {
@@ -102,68 +103,20 @@ class HomePath extends StatelessWidget {
   }
 }
 
-List<Tab> _tabs() {
+List<Widget> _tabs() {
   return [
+    Tab(icon: Icon(Icons.add),),
     Tab(text: 'HOME'),
     Tab(text: 'CALENDER'),
+    Tab(icon: Icon(Icons.settings),),
   ];
 }
 
 List<Widget> _tabBarViews() {
   return [
+    Create(),
     Home(),
+    Calender(),
     Calender(),
   ];
 }
-
-
-//class Home extends StatefulWidget {
-//  @override
-//  _HomeState createState() => _HomeState();
-//}
-//
-//class _HomeState extends State<Home> {
-//  @override
-//  Widget build(BuildContext context) {
-//    return Scaffold(
-//      body: Column(
-//        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//        children: <Widget>[
-//          Center(
-//            child: Text(
-//              'Hello world',
-//              style: TextStyle(shadows: AppShadows.font_shadow),
-//            ),
-//          ),
-//          TextFormField(
-//            decoration: InputDecoration(
-//              filled: true,
-//            ),
-//          ),
-//          Center(
-//            child: Container(
-//              height: 40,
-//              width: 300,
-//              decoration: BoxDecoration(
-//                borderRadius: BorderRadius.all(Radius.circular(30)),
-//                color: Colors.transparent,
-//                boxShadow: AppShadows.push_shadow,
-//              ),
-//            ),
-//          ),
-//          Center(
-//            child: Container(
-//              height: 100,
-//              width: 100,
-//              decoration: BoxDecoration(
-//                borderRadius: BorderRadius.all(Radius.circular(30)),
-//                color: AppColors.grey,
-//                boxShadow: AppShadows.pop_shadow,
-//              ),
-//            ),
-//          )
-//        ],
-//      ),
-//    );
-//  }
-//}
