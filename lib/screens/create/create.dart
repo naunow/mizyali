@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mizyaliapp/configs/AppColors.dart';
+import 'package:mizyaliapp/screens/create/widgets/input_field.dart';
+import 'package:mizyaliapp/screens/create/widgets/input_reminder_field.dart';
+import 'package:mizyaliapp/screens/create/widgets/large_button.dart';
+import 'package:mizyaliapp/screens/create/widgets/reminder_button.dart';
 
 class Create extends StatefulWidget {
   @override
@@ -8,6 +12,7 @@ class Create extends StatefulWidget {
 
 class _CreateState extends State<Create> {
   var _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,67 +28,26 @@ class _CreateState extends State<Create> {
                 width: 150,
                 child: Placeholder(),
               ),
-              SizedBox(height: 25),
-              InputField(hintText: 'Name',),
-              SizedBox(height: 25),
-              InputField(hintText: 'Discription',),
-              //InputField(hintText: 'Name', formKey: _formKey,),
-              RaisedButton(
+              InputField(
+                hintText: 'Name',
+              ),
+              InputField(
+                hintText: 'Discription',
+              ),
+              InputReminderField(
+                hintText: 'Reminder title',
+              ),
+              ReminderButton(),
+              SizedBox(height: 50,),
+              LargeButton(
+                text: 'Save',
                 color: AppColors.grey,
-
-                // 送信ボタンクリック時の処理
-                onPressed: () {
-                  // バリデーションチェック
-                  if (_formKey.currentState.validate()) {
-                    // 各フォームのonSavedに記述した処理を実行
-                    // このsave()を呼び出さないと、onSavedは実行されないので注意
-                    _formKey.currentState.save();
-                    Scaffold.of(context)
-                        .showSnackBar(SnackBar(content: Text('更新しました。')));
-                  }
-                },
-                child: Text('送信する'),
+                formKey: _formKey,
               ),
-              SizedBox(
-                height: 25,
-              ),
+              SizedBox(height: 25),
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class InputField extends StatefulWidget {
-  final String hintText;
-
-  const InputField({Key key, this.hintText}) : super(key: key);
-
-  @override
-  _InputFieldState createState() => _InputFieldState();
-}
-
-class _InputFieldState extends State<InputField> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0),
-      child: TextFormField(
-        autofocus: false,
-        obscureText: false,
-        keyboardType: TextInputType.text,
-        decoration: InputDecoration(
-          hintText: this.widget.hintText,
-          labelText: this.widget.hintText,
-          contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-        ),
-          validator: (value) =>
-          value.isEmpty ? ('NG') : null
-//                onSaved: (String value) {
-//                  _loginData.password = value;
-//                }
       ),
     );
   }

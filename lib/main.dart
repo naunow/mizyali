@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
               fontWeight: FontWeight.w400,
             ),
             button: TextStyle(
-              fontSize: 16,
+              fontSize: 18,
               fontWeight: FontWeight.w300,
               shadows: AppShadows.font_shadow,
             ),
