@@ -18,7 +18,7 @@ class PlantPic extends StatelessWidget {
       Container(
       margin: EdgeInsets.only(right: 11),
       child: ClipPath(
-        child: new Container(
+        child: Container(
           color: AppColors.light_shadow,
           width: 100.0,
           height: 100.0,

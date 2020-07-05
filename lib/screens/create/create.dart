@@ -4,6 +4,10 @@ import 'package:mizyaliapp/screens/create/widgets/input_field.dart';
 import 'package:mizyaliapp/screens/create/widgets/input_reminder_field.dart';
 import 'package:mizyaliapp/screens/create/widgets/large_button.dart';
 import 'package:mizyaliapp/screens/create/widgets/reminder_button.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+
+import 'package:mizyaliapp/screens/home/widgets/plant_pic.dart';
 
 class Create extends StatefulWidget {
   @override
@@ -12,6 +16,16 @@ class Create extends StatefulWidget {
 
 class _CreateState extends State<Create> {
   var _formKey = GlobalKey<FormState>();
+  File _image;
+  final picker = ImagePicker();
+
+  Future _getImage() async{
+    var image = await picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      _image = File(image.path);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +37,19 @@ class _CreateState extends State<Create> {
           key: _formKey,
           child: Column(
             children: <Widget>[
-              Container(
-                height: 150,
-                width: 150,
-                child: Placeholder(),
+              ClipPath(
+              clipper: CircleClipper(),
+                child: Container(
+                  height: 150,
+                  width: 150,
+                  color: AppColors.light_shadow,
+                  child: GestureDetector(
+                    onTap: _getImage,
+                    child: _image == null ? Icon(Icons.add) : Image.file(_image),
+                  ),
+                ),
               ),
+              SizedBox(height: 25),
               InputField(
                 hintText: 'Name',
               ),
