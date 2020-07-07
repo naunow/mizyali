@@ -13,6 +13,7 @@ class InputField extends StatefulWidget {
 class _InputFieldState extends State<InputField> {
   @override
   Widget build(BuildContext context) {
+    debugPrint('=======PRINT REQUIRED FIELD=======');
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30.0),
       child: SizedBox(
@@ -28,10 +29,10 @@ class _InputFieldState extends State<InputField> {
               border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
             ),
             validator: (value) =>
-            value.isEmpty ? ('The ${this.widget.hintText} is required.') : null
-//                onSaved: (String value) {
-//                  _loginData.password = value;
-//                }
+            value.isEmpty ? ('The ${this.widget.hintText} is required.') : null,
+                onSaved: (String value) {
+                  debugPrint('=======PRINT REQUIRED FIELD [${this.widget.hintText}]=======：$value');
+                }
         ),
       ),
     );

@@ -6,6 +6,7 @@ import 'package:mizyaliapp/configs/AppShadows.dart';
 import 'package:mizyaliapp/screens/calender/calender.dart';
 import 'package:mizyaliapp/screens/create/create.dart';
 import 'package:mizyaliapp/screens/home/home.dart';
+import 'package:mizyaliapp/screens/settings/settings.dart';
 
 void main() {
   debugPaintSizeEnabled = false;
@@ -117,6 +118,6 @@ List<Widget> _tabBarViews() {
     Create(),
     Home(),
     Calender(),
-    Calender(),
+    Settings(),
   ];
 }
