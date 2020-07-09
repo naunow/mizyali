@@ -1,7 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:mizyaliapp/configs/AppColors.dart';
+import 'package:mizyaliapp/configs/localized.dart';
 import 'package:mizyaliapp/screens/create/widgets/input_field.dart';
 import 'package:mizyaliapp/screens/create/widgets/large_button.dart';
 import 'package:image_picker/image_picker.dart';
@@ -76,17 +75,17 @@ class _CreateState extends State<Create> {
               ),
               SizedBox(height: 25),
               InputField(
-                hintText: 'Name',
+                hintText: Localized.of(context).name,
               ),
               InputField(
-                hintText: 'Discription',
+                hintText: Localized.of(context).description,
               ),
 //              Column(children: reminderList),
               Column(children: reminderList),
               _reminderButton(),
               SizedBox(height: 50,),
               LargeButton(
-                text: 'Save',
+                text: Localized.of(context).saveButton,
                 color: AppColors.grey,
                 formKey: _formKey,
               ),
@@ -107,7 +106,7 @@ class _CreateState extends State<Create> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
         ),
-        label: Text('Add Reminder', style: Theme
+        label: Text(Localized.of(context).reminderButton, style: Theme
             .of(context)
             .textTheme
             .headline3
@@ -145,8 +144,8 @@ class _ReminderState extends State<Reminder> {
                   obscureText: false,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
-                    hintText: 'Reminder ${widget.index.toString()}',
-                    labelText: 'Reminder ${widget.index.toString()}',
+                    hintText: Localized.of(context).reminder,
+                    labelText: Localized.of(context).reminder,
                     contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                     border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
@@ -168,8 +167,8 @@ class _ReminderState extends State<Reminder> {
                   obscureText: false,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    hintText: 'every 5 days',
-                    labelText: 'Cycle',
+                    hintText: Localized.of(context).cycle,
+                    labelText: Localized.of(context).cycle,
                     contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                     border:
                     OutlineInputBorder(

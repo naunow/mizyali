@@ -3,6 +3,8 @@ import 'package:flutter/rendering.dart';
 import 'package:mizyaliapp/configs/AppColors.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mizyaliapp/configs/AppShadows.dart';
+import 'package:mizyaliapp/configs/localized.dart';
+import 'package:mizyaliapp/configs/my_localizations_delegate.dart';
 import 'package:mizyaliapp/screens/calender/calender.dart';
 import 'package:mizyaliapp/screens/create/create.dart';
 import 'package:mizyaliapp/screens/home/home.dart';
@@ -17,6 +19,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: [
+        const MyLocalizationsDelegate(),
+        DefaultMaterialLocalizations.delegate,
+        DefaultWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('en'),
+        const Locale('ja'),
+//        GlobalMaterialLocalizations.delegate,
+//        GlobalWidgetsLocalizations.delegate,
+      ],
+      // default locale setting.
+      locale: Locale('en'),
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textTheme: GoogleFonts.mPlusRounded1cTextTheme(
           Theme.of(context)
@@ -69,7 +85,6 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: AppColors.grey,
       ),
       home: HomePath(),
-      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -102,22 +117,31 @@ class HomePath extends StatelessWidget {
             ))
     );
   }
-}
 
-List<Widget> _tabs() {
-  return [
-    Tab(icon: Icon(Icons.add),),
-    Tab(text: 'HOME'),
-    Tab(text: 'CALENDER'),
-    Tab(icon: Icon(Icons.settings),),
-  ];
-}
 
-List<Widget> _tabBarViews() {
-  return [
-    Create(),
-    Home(),
-    Calender(),
-    Settings(),
-  ];
+  List<Widget> _tabs() {
+    return [
+      Tab(text: 'CREATE',),
+//      Tab(icon: Icon(Icons.add),),
+//      Tab(text: Localized
+//          .of(context)
+//          .tabMenuHome),
+//      Tab(text: Localized
+//          .of(context)
+//          .tabMenuCalender),
+      Tab(text: 'HOME',),
+      Tab(text: 'CALENDER',),
+      Tab(text: 'SETTINGS',),
+//      Tab(icon: Icon(Icons.settings),),
+    ];
+  }
+
+  List<Widget> _tabBarViews() {
+    return [
+      Create(),
+      Home(),
+      Calender(),
+      Settings(),
+    ];
+  }
 }
