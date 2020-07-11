@@ -48,7 +48,7 @@ List<Plant> _getTestPlantInfo(){
       ..id = 1
       ..name = 'Atom'
       ..memo = 'This is a test memo.'
-      ..startDate = '20200101'
+      ..startDate = '20200710'
       ..imagePath = 'assets/images/squareplant.jpg'
       ..wateringCycleList = _getWateringCycle(plantId: 1),
     Plant()

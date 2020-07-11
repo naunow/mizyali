@@ -54,6 +54,12 @@ class _CreateState extends State<Create> {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: () {
+          Navigator.pop(context);
+        }, color: AppColors.black,),
+      ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         padding: EdgeInsets.symmetric(vertical: 36.0),

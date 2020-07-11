@@ -38,10 +38,6 @@ class _PlantCardState extends State<PlantCard> {
               PlantInfoDisplay(plantInfo: widget.plantInfo),
             ],
           ),
-//          Divider(
-//            color: AppColors.dark_shadow,
-//            thickness: 1,
-//          ),
           ChartArea(wateringCycleList: widget.plantInfo.wateringCycleList,),
         ],
       ),

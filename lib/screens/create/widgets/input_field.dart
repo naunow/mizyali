@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mizyaliapp/configs/AppColors.dart';
 
 class InputField extends StatefulWidget {
   final String hintText;

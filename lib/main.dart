@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mizyaliapp/configs/AppColors.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mizyaliapp/configs/AppShadows.dart';
@@ -21,17 +22,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       localizationsDelegates: [
         const MyLocalizationsDelegate(),
-        DefaultMaterialLocalizations.delegate,
-        DefaultWidgetsLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
       ],
       supportedLocales: [
-        const Locale('en'),
-        const Locale('ja'),
-//        GlobalMaterialLocalizations.delegate,
-//        GlobalWidgetsLocalizations.delegate,
+        const Locale('en','US'),
+        const Locale('ja','JP'),
       ],
-      // default locale setting.
-      locale: Locale('en'),
+      locale: Locale('en','US'),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textTheme: GoogleFonts.mPlusRounded1cTextTheme(
@@ -93,9 +91,22 @@ class HomePath extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: _tabs().length,
+        length: _tabs(context).length,
         child: Scaffold(
             appBar: AppBar(
+              leading: IconButton(
+                  icon: Icon(Icons.add), color: AppColors.black, onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Create()));
+              }),
+              actions: <Widget>[
+                IconButton(icon: Icon(Icons.settings),
+                  color: AppColors.black,
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Settings()));
+                  },),
+              ],
               flexibleSpace: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
@@ -107,7 +118,7 @@ class HomePath extends StatelessWidget {
                         letterSpacing: 8.0,
                         shadows: AppShadows.font_shadow,
                         fontWeight: FontWeight.w300),
-                    tabs: _tabs(),
+                    tabs: _tabs(context),
                   )
                 ],
               ),
@@ -119,29 +130,21 @@ class HomePath extends StatelessWidget {
   }
 
 
-  List<Widget> _tabs() {
+  List<Widget> _tabs(BuildContext context) {
     return [
-      Tab(text: 'CREATE',),
-//      Tab(icon: Icon(Icons.add),),
-//      Tab(text: Localized
-//          .of(context)
-//          .tabMenuHome),
-//      Tab(text: Localized
-//          .of(context)
-//          .tabMenuCalender),
-      Tab(text: 'HOME',),
-      Tab(text: 'CALENDER',),
-      Tab(text: 'SETTINGS',),
-//      Tab(icon: Icon(Icons.settings),),
+      Tab(text: Localized
+          .of(context)
+          .tabMenuHome),
+      Tab(text: Localized
+          .of(context)
+          .tabMenuCalender),
     ];
   }
 
   List<Widget> _tabBarViews() {
     return [
-      Create(),
       Home(),
       Calender(),
-      Settings(),
     ];
   }
 }
