@@ -11,6 +11,11 @@ class Settings extends StatelessWidget {
           Navigator.pop(context);
         }, color: AppColors.black,),
       ),
+      body: ListView.builder(
+        itemCount: 2,
+          itemBuilder: (context, int index){
+        return Text('list $index');
+      }),
     );
   }
 }

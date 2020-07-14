@@ -6,10 +6,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mizyaliapp/configs/AppShadows.dart';
 import 'package:mizyaliapp/configs/localized.dart';
 import 'package:mizyaliapp/configs/my_localizations_delegate.dart';
-import 'package:mizyaliapp/screens/calender/calender.dart';
-import 'package:mizyaliapp/screens/create/create.dart';
-import 'package:mizyaliapp/screens/home/home.dart';
-import 'package:mizyaliapp/screens/settings/settings.dart';
+import 'file:///C:/Users/nauno/AndroidStudioProjects/mizyali_app/lib/screens/calender/screens/calender.dart';
+import 'file:///C:/Users/nauno/AndroidStudioProjects/mizyali_app/lib/screens/create/screens/create.dart';
+import 'file:///C:/Users/nauno/AndroidStudioProjects/mizyali_app/lib/screens/home/screens/home.dart';
+import 'file:///C:/Users/nauno/AndroidStudioProjects/mizyali_app/lib/screens/settings/screens/settings.dart';
 
 void main() {
   debugPaintSizeEnabled = false;
@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
         const Locale('en','US'),
         const Locale('ja','JP'),
       ],
+      //locale:Locale('ja', 'JP'),
       locale: Locale('en','US'),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

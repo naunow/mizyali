@@ -14,35 +14,26 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        padding: EdgeInsets.symmetric(vertical :36.0),
-        child: Center(
-          child: Column(
-            children:
-              _getPlantCard(),
-          ),
-        ),
-      ),
+      body: ListView.builder(
+        padding: EdgeInsets.symmetric(horizontal: 26),
+          itemCount: 4,
+          itemBuilder: (context, int index) {
+            return Padding(
+              padding: EdgeInsets.symmetric(vertical: 18),
+              child: _getPlantCard(index),
+            );
+          }),
     );
   }
 }
 
-_getPlantCard(){
-  var plantCardList = _getTestPlantInfo();
+PlantCard _getPlantCard(int index){
+  var plantInfo = _getTestPlantInfo(index);
 
-  List<Widget> plantCard = [];
-  plantCardList.forEach((plantInfo) {
-    plantCard.addAll([
-      PlantCard(plantInfo: plantInfo),
-      SizedBox(height: 26),
-    ]);
-  });
-
-  return plantCard;
+  return PlantCard(plantInfo: plantInfo,);
 }
 
-List<Plant> _getTestPlantInfo(){
+Plant _getTestPlantInfo(int index){
   var plantList = ([
     Plant()
       ..id = 1
@@ -74,7 +65,8 @@ List<Plant> _getTestPlantInfo(){
       ..wateringCycleList = _getWateringCycle(plantId: 2),
   ]);
 
-  return plantList;
+  return plantList[index];
+  //return plantList;
 }
 
 List<WateringCycle> _getWateringCycle({int plantId}) {
