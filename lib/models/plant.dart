@@ -5,6 +5,8 @@ class Plant {
   String startDate;
   String imagePath;
 
+  Plant();
+
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
       'id': id,

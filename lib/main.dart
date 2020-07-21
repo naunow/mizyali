@@ -10,13 +10,40 @@ import 'file:///C:/Users/nauno/AndroidStudioProjects/mizyali_app/lib/screens/cal
 import 'file:///C:/Users/nauno/AndroidStudioProjects/mizyali_app/lib/screens/create/screens/create.dart';
 import 'file:///C:/Users/nauno/AndroidStudioProjects/mizyali_app/lib/screens/home/screens/home.dart';
 import 'file:///C:/Users/nauno/AndroidStudioProjects/mizyali_app/lib/screens/settings/screens/settings.dart';
+import 'package:mizyaliapp/models/db_provider.dart';
 
 void main() {
   debugPaintSizeEnabled = false;
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+    DbProvider dbHelper;
+  bool isUpdating;
+
+  @override
+  void initState() {
+    super.initState();
+    dbHelper = DbProvider();
+    dbHelper.init();
+    isUpdating = false;
+    refreshList();
+  }
+
+  refreshList() {
+    setState(() {
+      dbHelper.getPlant(1).then((value) => 
+      debugPrint("======${value.name}====="));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
