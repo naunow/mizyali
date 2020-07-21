@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mizyaliapp/configs/AppColors.dart';
 import 'package:mizyaliapp/configs/AppShadows.dart';
-import 'package:mizyaliapp/models/calender_event_detail.dart';
-import 'package:mizyaliapp/models/done_cycle.dart';
+import 'package:mizyaliapp/view_models/calender_event_detail.dart';
+import 'package:mizyaliapp/view_models/done_cycle.dart';
 import 'package:mizyaliapp/screens/calender/widgets/calender_chosen_date.dart' as globals;
 import 'clip_image_rounded.dart';
 

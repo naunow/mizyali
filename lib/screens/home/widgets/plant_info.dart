@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mizyaliapp/configs/localized.dart';
-import 'package:mizyaliapp/models/plant_info.dart';
+import 'package:mizyaliapp/view_models/plant_info.dart';
 
 class PlantInfoDisplay extends StatelessWidget {
-  final Plant plantInfo;
+  final ViewPlant plantInfo;
 
   PlantInfoDisplay({Key key, this.plantInfo}) : super(key: key);
 

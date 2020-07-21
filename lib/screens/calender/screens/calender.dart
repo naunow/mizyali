@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
     show CalendarCarousel, EventList, WeekdayFormat;
 import 'package:mizyaliapp/configs/AppColors.dart';
-import 'package:mizyaliapp/models/calender_event_detail.dart';
-import 'package:mizyaliapp/models/done_cycle.dart';
+import 'package:mizyaliapp/view_models/calender_event_detail.dart';
+import 'package:mizyaliapp/view_models/done_cycle.dart';
 import 'package:mizyaliapp/screens/calender/widgets/calender_event.dart';
 import 'package:mizyaliapp/screens/calender/widgets/monthly_calender.dart';
 

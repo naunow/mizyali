@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mizyaliapp/configs/AppColors.dart';
-import 'package:mizyaliapp/models/plant_info.dart';
+import 'package:mizyaliapp/view_models/plant_info.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class CycleChart extends StatelessWidget {
   final List<charts.Series> seriesList;
   final bool animate;
-  final WateringCycle cycle;
+  final ViewPlantCycle cycle;
 
   CycleChart(this.seriesList, {this.animate, this.cycle});
 
@@ -42,27 +42,27 @@ class CycleChart extends StatelessWidget {
   }
 
   /// Create one series with sample hard coded data.
-  static List<charts.Series<WateringCycle, int>> _createSampleData() {
+  static List<charts.Series<ViewPlantCycle, int>> _createSampleData() {
     final data = [
-      WateringCycle()
+      ViewPlantCycle()
         ..reminderCycleDays = 7
         ..reminderTitle = 'title 1'
         ..color = AppColors.blue,
-      WateringCycle()
+      ViewPlantCycle()
         ..reminderCycleDays = 2
         ..reminderTitle = 'title 2'
         ..color = AppColors.grey,
     ];
     return [
-      charts.Series<WateringCycle, int>(
+      charts.Series<ViewPlantCycle, int>(
         id: 'Watering',
-        domainFn: (WateringCycle cycle, _) => cycle.reminderCycleDays,
-        measureFn: (WateringCycle cycle, _) => cycle.reminderCycleDays,
+        domainFn: (ViewPlantCycle cycle, _) => cycle.reminderCycleDays,
+        measureFn: (ViewPlantCycle cycle, _) => cycle.reminderCycleDays,
         data: data,
-        labelAccessorFn: (WateringCycle cycle, _) => cycle.reminderTitle,
+        labelAccessorFn: (ViewPlantCycle cycle, _) => cycle.reminderTitle,
         displayName: 'display name',
-        radiusPxFn: (WateringCycle cycle, _) => 10,
-        colorFn: (WateringCycle cycle, _) => charts.ColorUtil.fromDartColor(cycle.color),
+        radiusPxFn: (ViewPlantCycle cycle, _) => 10,
+        colorFn: (ViewPlantCycle cycle, _) => charts.ColorUtil.fromDartColor(cycle.color),
       )
     ];
   }

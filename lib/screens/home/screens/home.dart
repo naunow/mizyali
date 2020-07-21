@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mizyaliapp/configs/AppColors.dart';
-import 'package:mizyaliapp/models/plant_info.dart';
+import 'package:mizyaliapp/view_models/plant_info.dart';
 import 'package:mizyaliapp/screens/home/widgets/plant_card.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -33,30 +33,30 @@ PlantCard _getPlantCard(int index){
   return PlantCard(plantInfo: plantInfo,);
 }
 
-Plant _getTestPlantInfo(int index){
+ViewPlant _getTestPlantInfo(int index){
   var plantList = ([
-    Plant()
+    ViewPlant()
       ..id = 1
       ..name = 'Atom'
       ..memo = 'This is a test memo.'
       ..startDate = '20200710'
       ..imagePath = 'assets/images/squareplant.jpg'
       ..wateringCycleList = _getWateringCycle(plantId: 1),
-    Plant()
+    ViewPlant()
       ..id = 2
       ..name = 'Takiyon'
       ..memo = 'My parents gave it to me on my birthday.'
       ..startDate = '20200214'
       ..imagePath = 'assets/images/cactus.jpg'
       ..wateringCycleList = _getWateringCycle(plantId: 2),
-    Plant()
+    ViewPlant()
       ..id = 3
       ..name = 'Strawberry'
       ..memo = 'hayaku tabetai!'
       ..startDate = '20191225'
       ..imagePath = 'assets/images/squareplant.jpg'
       ..wateringCycleList = _getWateringCycle(plantId: 1),
-    Plant()
+    ViewPlant()
       ..id = 4
       ..name = 'tomato'
       ..memo = 'My parents gave it to me on my birthday. My parents gave it to me on my birthday. My parents gave it to me on my birthday.'
@@ -69,33 +69,33 @@ Plant _getTestPlantInfo(int index){
   //return plantList;
 }
 
-List<WateringCycle> _getWateringCycle({int plantId}) {
+List<ViewPlantCycle> _getWateringCycle({int plantId}) {
   var wateringCycleList = ([
-    WateringCycle()
+    ViewPlantCycle()
       ..id = 1
       ..plantId = 1
       ..reminderTitle = 'Watering'
       ..reminderCycleDays = 5
       ..color = AppColors.blue,
-    WateringCycle()
+    ViewPlantCycle()
       ..id = 2
       ..plantId = 1
       ..reminderTitle = 'Fertilize Soil'
       ..reminderCycleDays = 7
       ..color = AppColors.orange,
-    WateringCycle()
+    ViewPlantCycle()
       ..id = 3
       ..plantId = 1
       ..reminderTitle = 'Cleaning'
       ..reminderCycleDays = 3
       ..color = AppColors.purple,
-    WateringCycle()
+    ViewPlantCycle()
       ..id = 4
       ..plantId = 2
       ..reminderTitle = 'Trim Plant'
       ..reminderCycleDays = 10
       ..color = AppColors.blue,
-    WateringCycle()
+    ViewPlantCycle()
       ..id = 5
       ..plantId = 2
       ..reminderTitle = 'Fertilizer'

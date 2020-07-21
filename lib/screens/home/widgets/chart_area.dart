@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mizyaliapp/configs/AppColors.dart';
-import 'package:mizyaliapp/models/plant_info.dart';
+import 'package:mizyaliapp/view_models/plant_info.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 import 'chart.dart';
 
 class ChartArea extends StatelessWidget {
-  final List<WateringCycle> wateringCycleList;
+  final List<ViewPlantCycle> wateringCycleList;
 
   const ChartArea({Key key, this.wateringCycleList}) : super(key: key);
   @override
@@ -19,7 +19,7 @@ class ChartArea extends StatelessWidget {
   }
 }
 
-_wateringCycleInfo(List<WateringCycle> wateringCycleList, BuildContext context){
+_wateringCycleInfo(List<ViewPlantCycle> wateringCycleList, BuildContext context){
   var size = MediaQuery.of(context).size;
 
   List<Widget> result = [];
@@ -39,27 +39,27 @@ _wateringCycleInfo(List<WateringCycle> wateringCycleList, BuildContext context){
   return result;
 }
 
-List<charts.Series<WateringCycle, int>> _chartSeries(WateringCycle cycle){
+List<charts.Series<ViewPlantCycle, int>> _chartSeries(ViewPlantCycle cycle){
   var data = [
-    WateringCycle()
+    ViewPlantCycle()
       ..reminderCycleDays = cycle.reminderCycleDays
       ..reminderTitle = 'title 2'
       ..color = cycle.color,
-    WateringCycle()
+    ViewPlantCycle()
     ..reminderCycleDays = cycle.reminderCycleDays - 2
     ..reminderTitle = 'title 2'
     ..color = AppColors.grey,
   ];
 
-  var series = [charts.Series<WateringCycle, int>(
+  var series = [charts.Series<ViewPlantCycle, int>(
     id: 'Watering',
-    domainFn: (WateringCycle cycle, _) => cycle.reminderCycleDays,
-    measureFn: (WateringCycle cycle, _) => cycle.reminderCycleDays,
+    domainFn: (ViewPlantCycle cycle, _) => cycle.reminderCycleDays,
+    measureFn: (ViewPlantCycle cycle, _) => cycle.reminderCycleDays,
     data: data,
-    labelAccessorFn: (WateringCycle cycle, _) => cycle.reminderTitle,
+    labelAccessorFn: (ViewPlantCycle cycle, _) => cycle.reminderTitle,
     displayName: 'display name',
-    radiusPxFn: (WateringCycle cycle, _) => 10,
-    colorFn: (WateringCycle cycle, _) => charts.ColorUtil.fromDartColor(cycle.color),
+    radiusPxFn: (ViewPlantCycle cycle, _) => 10,
+    colorFn: (ViewPlantCycle cycle, _) => charts.ColorUtil.fromDartColor(cycle.color),
   )];
 
   return series;

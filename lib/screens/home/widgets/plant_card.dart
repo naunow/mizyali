@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mizyaliapp/configs/AppColors.dart';
 import 'package:mizyaliapp/configs/AppShadows.dart';
-import 'package:mizyaliapp/models/plant_info.dart';
+import 'package:mizyaliapp/view_models/plant_info.dart';
 import 'package:mizyaliapp/screens/home/widgets/plant_info.dart';
 import 'package:mizyaliapp/screens/home/widgets/plant_pic.dart';
 import 'package:mizyaliapp/screens/home/widgets/chart_area.dart';
 
 class PlantCard extends StatefulWidget {
-  final Plant plantInfo;
+  final ViewPlant plantInfo;
 
   const PlantCard({Key key, this.plantInfo}) : super(key: key);
 

@@ -1,15 +1,15 @@
 import 'dart:ui';
 
-class Plant{
+class ViewPlant{
   int id;
   String memo;
   String name;
   String startDate;
   String imagePath;
-  List<WateringCycle> wateringCycleList;
+  List<ViewPlantCycle> wateringCycleList;
 }
 
-class WateringCycle{
+class ViewPlantCycle{
   int id;
   int plantId;
   String reminderTitle;
