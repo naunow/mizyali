@@ -29,6 +29,7 @@ class DbProvider {
   static const String KEY_REMINDERTITLE = "reminderTitle";
   static const String KEY_REMINDERCYCLEDAYS = "reminderCycleDays";
   static const String KEY_COLOR = "color";
+  static const String KEY_LASTDONEDAY = "lastDoneDay";
 
   // Table Create Statements
   // Plants table create statement
@@ -50,7 +51,8 @@ class DbProvider {
     $KEY_PLANTID INTEGER,
     $KEY_REMINDERTITLE TEXT,
     $KEY_REMINDERCYCLEDAYS INTEGER,
-    $KEY_COLOR TEXT
+    $KEY_COLOR TEXT,
+    $KEY_LASTDONEDAY TEXT
   )
   """;
 
@@ -86,8 +88,8 @@ class DbProvider {
     Plant samplePlant = Plant()
       ..memo = "initial memo"
       ..name = "first name"
-      ..startDate = "2020-01-01"
-      ..imagePath = "--";
+      ..startDate = DateTime(2020, 1, 1).toUtc().toString()
+      ..imagePath = "assets\images\cactus.jpg";
 
     return await db.insert(TABLE_PLANT, samplePlant.toMap());
   }
@@ -130,8 +132,8 @@ class DbProvider {
   Future<List<Cycle>> getCycles() async {
     var dbClient = await db;
     var maps = await dbClient.query(TABLE_CYCLE);
-    var list = [];
-    maps.forEach((map) => list.add(Plant.fromMap(map)));
+    var list;
+    maps.forEach((map) => list.add(Cycle.fromMap(map)));
     return list;
   }
 

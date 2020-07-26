@@ -4,6 +4,7 @@ class Cycle {
   String reminderTitle;
   int reminderCycleDays;
   String color;
+  String lastDoneDay;
 
   Cycle();
 
@@ -14,6 +15,7 @@ class Cycle {
       'reminderTitle': reminderTitle,
       'reminderCycleDays': reminderCycleDays,
       'color': color,
+      'lastDoneDay': lastDoneDay,
     };
     return map;
   }
@@ -24,5 +26,6 @@ class Cycle {
     reminderTitle = map['reminderTitle'];
     reminderCycleDays = map['reminderCycleDays'];
     color = map['color'];
+    lastDoneDay = map['lastDoneDay'];
   }
 }
