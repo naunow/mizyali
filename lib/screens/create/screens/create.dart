@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mizyaliapp/configs/AppColors.dart';
 import 'package:mizyaliapp/configs/localized.dart';
-import 'package:mizyaliapp/screens/calender/widgets/clip_image_rounded.dart';
+import 'package:mizyaliapp/models/cycle.dart';
+import 'package:mizyaliapp/models/plant.dart';
 import 'package:mizyaliapp/screens/create/widgets/input_field.dart';
 import 'package:mizyaliapp/screens/create/widgets/large_button.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mizyaliapp/screens/create/widgets/reminder_input_field.dart';
 import 'dart:io';
 
 import 'package:mizyaliapp/widgets/circle_clipper.dart';
@@ -20,24 +22,34 @@ class _CreateState extends State<Create> {
   final picker = ImagePicker();
   List<Reminder> reminderList = [];
 
-  _CreateState(){
-    reminderList.add(Reminder(removeReminder: removeReminder,));
+  // For insert
+  Plant plant = Plant();
+  List<Cycle> cycleList = List<Cycle>();
+
+  _CreateState() {
+    reminderList.add(Reminder(
+      removeReminder: removeReminder,
+      cycleList: cycleList,
+    ));
   }
 
-  Future _getImage() async{
+  Future _getImage() async {
     var image = await picker.getImage(source: ImageSource.gallery);
 
     setState(() {
       _image = File(image.path);
+      plant.imagePath = image.path;
     });
   }
 
-  void _addReminder(){
+  void _addReminder() {
     List<Reminder> list = [];
     list.addAll(reminderList);
-    var index = reminderList.length;
 
-    list.add(Reminder(removeReminder: removeReminder,));
+    list.add(Reminder(
+      removeReminder: removeReminder,
+      cycleList: cycleList,
+    ));
 
     setState(() {
       reminderList = list;
@@ -50,16 +62,18 @@ class _CreateState extends State<Create> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: () {
-          Navigator.pop(context);
-        }, color: AppColors.black,),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          color: AppColors.black,
+        ),
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -69,32 +83,38 @@ class _CreateState extends State<Create> {
           child: Column(
             children: <Widget>[
               ClipPath(
-              clipper: CircleClipper(),
+                clipper: CircleClipper(),
                 child: Container(
                   height: 150,
                   width: 150,
                   color: AppColors.light_shadow,
                   child: GestureDetector(
                     onTap: _getImage,
-                    child: _image == null ? Icon(Icons.add) : Image.file(_image),
+                    child:
+                        _image == null ? Icon(Icons.add) : Image.file(_image),
                   ),
                 ),
               ),
               SizedBox(height: 25),
               InputField(
                 hintText: Localized.of(context).name,
+                model: plant,
               ),
               InputField(
                 hintText: Localized.of(context).description,
+                model: plant,
               ),
-//              Column(children: reminderList),
               Column(children: reminderList),
               _reminderButton(),
-              SizedBox(height: 50,),
+              SizedBox(
+                height: 50,
+              ),
               LargeButton(
                 text: Localized.of(context).saveButton,
                 color: AppColors.grey,
                 formKey: _formKey,
+                plant: plant,
+                cycleList: cycleList,
               ),
               SizedBox(height: 25),
             ],
@@ -109,33 +129,44 @@ class _CreateState extends State<Create> {
       height: 40,
       child: FlatButton.icon(
         onPressed: _addReminder,
-        icon: Icon(Icons.add, color: AppColors.grey,),
+        icon: Icon(
+          Icons.add,
+          color: AppColors.grey,
+        ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
         ),
-        label: Text(Localized.of(context).reminderButton, style: Theme
-            .of(context)
-            .textTheme
-            .headline3
-            .apply(color: AppColors.grey),),
+        label: Text(
+          Localized.of(context).reminderButton,
+          style: Theme.of(context)
+              .textTheme
+              .headline3
+              .apply(color: AppColors.grey),
+        ),
         color: AppColors.black,
       ),
     );
   }
-
 }
 
 class Reminder extends StatefulWidget {
   final GlobalKey index = GlobalKey();
   final Function removeReminder;
+  final List<Cycle> cycleList;
 
-  Reminder({Key key, this.removeReminder}) : super(key: key);
+  Reminder({Key key, this.removeReminder, this.cycleList}) : super(key: key);
 
   @override
   _ReminderState createState() => _ReminderState();
 }
 
 class _ReminderState extends State<Reminder> {
+  Cycle cycle = Cycle();
+
+  addCycleList() {
+    this.widget.cycleList.remove(cycle);
+    this.widget.cycleList.add(cycle);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -146,56 +177,40 @@ class _ReminderState extends State<Reminder> {
           Expanded(
             flex: 2,
             child: SizedBox(
-              child: TextFormField(
-                  autofocus: false,
-                  obscureText: false,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    hintText: Localized.of(context).reminder,
-                    labelText: Localized.of(context).reminder,
-                    contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                    border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                  ),
-                  validator: (value) => null,
-                  onSaved: (String value){},
-//                onSaved: (String value) {
-//                  _loginData.password = value;
-//                }
+              child: ReminderInputField(
+                hintText: Localized.of(context).reminderHintText,
+                labelText: Localized.of(context).reminderLabelText,
+                inputType: TextInputType.text,
+                cycle: cycle,
               ),
             ),
           ),
-          SizedBox(width: 10,),
+          SizedBox(
+            width: 10,
+          ),
           Expanded(
             flex: 1,
             child: SizedBox(
-              child: TextFormField(
-                  autofocus: false,
-                  obscureText: false,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    hintText: Localized.of(context).cycle,
-                    labelText: Localized.of(context).cycle,
-                    contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                    border:
-                    OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(32.0)),
-                  ),
-                  validator: (value) => null,
-                  onSaved: (String value) {
-                    print(value);
-                  }
+              child: ReminderInputField(
+                hintText: Localized.of(context).cycleHintText,
+                labelText: Localized.of(context).cycleLabelText,
+                inputType: TextInputType.number,
+                cycle: cycle,
+                addCycleFunc: addCycleList,
               ),
             ),
           ),
+          // Delete Icon
           IconButton(
-            onPressed: (){
+            onPressed: () {
               setState(() {
                 widget.removeReminder(widget.index);
               });
             },
-            icon: Icon(Icons.delete,
-              color: AppColors.black,),
+            icon: Icon(
+              Icons.delete,
+              color: AppColors.black,
+            ),
           ),
         ],
       ),

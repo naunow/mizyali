@@ -18,14 +18,12 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-
-    DbProvider dbHelper;
+  DbProvider dbHelper;
   bool isUpdating;
 
   @override
@@ -39,8 +37,9 @@ class _MyAppState extends State<MyApp> {
 
   refreshList() {
     setState(() {
-      dbHelper.getPlant(1).then((value) => 
-      debugPrint("======${value.name}====="));
+      dbHelper
+          .getPlant(1)
+          .then((value) => debugPrint("======${value.name}====="));
     });
   }
 
@@ -53,58 +52,58 @@ class _MyAppState extends State<MyApp> {
         GlobalWidgetsLocalizations.delegate,
       ],
       supportedLocales: [
-        const Locale('en','US'),
-        const Locale('ja','JP'),
+        const Locale('en', 'US'),
+        const Locale('ja', 'JP'),
       ],
       //locale:Locale('ja', 'JP'),
-      locale: Locale('en','US'),
+      locale: Locale('en', 'US'),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textTheme: GoogleFonts.mPlusRounded1cTextTheme(
           Theme.of(context)
               .textTheme
               .copyWith(
-            headline6: TextStyle(
-              // tab bar
-                fontSize: 20,
-                letterSpacing: 8.0,
-                shadows: AppShadows.font_shadow,
-                fontWeight: FontWeight.w400),
-            headline4: TextStyle(
-              // card plant name
-              fontSize: 18,
-              fontWeight: FontWeight.w300,
-            ),
-            bodyText2: TextStyle(
-              // card description
-              fontSize: 16,
-              fontWeight: FontWeight.w300,
-            ),
-            headline3: TextStyle(
-              // chart label
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-            ),
-            headline2: TextStyle(
-              // chart days
-              fontSize: 20,
-              fontWeight: FontWeight.w500,
-            ),
-            headline1: TextStyle(
-              // calender card
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-            ),
-            button: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w300,
-              shadows: AppShadows.font_shadow,
-            ),
-          )
+                headline6: TextStyle(
+                    // tab bar
+                    fontSize: 20,
+                    letterSpacing: 8.0,
+                    shadows: AppShadows.font_shadow,
+                    fontWeight: FontWeight.w400),
+                headline4: TextStyle(
+                  // card plant name
+                  fontSize: 18,
+                  fontWeight: FontWeight.w300,
+                ),
+                bodyText2: TextStyle(
+                  // card description
+                  fontSize: 16,
+                  fontWeight: FontWeight.w300,
+                ),
+                headline3: TextStyle(
+                  // chart label
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                ),
+                headline2: TextStyle(
+                  // chart days
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                ),
+                headline1: TextStyle(
+                  // calender card
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
+                button: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w300,
+                  shadows: AppShadows.font_shadow,
+                ),
+              )
               .apply(
-            bodyColor: AppColors.black,
-            displayColor: AppColors.black,
-          ),
+                bodyColor: AppColors.black,
+                displayColor: AppColors.black,
+              ),
         ),
         primarySwatch: Colors.cyan,
         primaryColor: AppColors.grey,
@@ -123,17 +122,21 @@ class HomePath extends StatelessWidget {
         child: Scaffold(
             appBar: AppBar(
               leading: IconButton(
-                  icon: Icon(Icons.add), color: AppColors.black, onPressed: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Create()));
-              }),
+                  icon: Icon(Icons.add),
+                  color: AppColors.black,
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Create()));
+                  }),
               actions: <Widget>[
-                IconButton(icon: Icon(Icons.settings),
+                IconButton(
+                  icon: Icon(Icons.settings),
                   color: AppColors.black,
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => Settings()));
-                  },),
+                  },
+                ),
               ],
               flexibleSpace: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -153,19 +156,13 @@ class HomePath extends StatelessWidget {
             ),
             body: TabBarView(
               children: _tabBarViews(),
-            ))
-    );
+            )));
   }
-
 
   List<Widget> _tabs(BuildContext context) {
     return [
-      Tab(text: Localized
-          .of(context)
-          .tabMenuHome),
-      Tab(text: Localized
-          .of(context)
-          .tabMenuCalender),
+      Tab(text: Localized.of(context).tabMenuHome),
+      Tab(text: Localized.of(context).tabMenuCalender),
     ];
   }
 

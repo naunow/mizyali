@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:mizyaliapp/configs/localized.dart';
+import 'package:mizyaliapp/models/plant.dart';
 
 class InputField extends StatefulWidget {
   final String hintText;
+  final Plant model;
 
-  const InputField({Key key, this.hintText}) : super(key: key);
+  const InputField({Key key, this.hintText, this.model}) : super(key: key);
 
   @override
   _InputFieldState createState() => _InputFieldState();
@@ -12,7 +15,7 @@ class InputField extends StatefulWidget {
 class _InputFieldState extends State<InputField> {
   @override
   Widget build(BuildContext context) {
-    debugPrint('=======PRINT REQUIRED FIELD=======');
+    debugPrint('=======INPUT FIELD=======');
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30.0),
       child: SizedBox(
@@ -25,14 +28,20 @@ class _InputFieldState extends State<InputField> {
               hintText: this.widget.hintText,
               labelText: this.widget.hintText,
               contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
             ),
-            validator: (value) =>
-            value.isEmpty ? ('The ${this.widget.hintText} is required.') : null,
-                onSaved: (String value) {
-                  debugPrint('=======PRINT REQUIRED FIELD [${this.widget.hintText}]=======：$value');
-                }
-        ),
+            validator: (value) => value.isEmpty
+                ? Localized.of(context)
+                    .validationRequireMessage(this.widget.hintText)
+                : null,
+            onSaved: (String value) {
+              this.widget.hintText == Localized.of(context).name
+                  ? widget.model.name = value
+                  : widget.model.memo = value;
+              debugPrint(
+                  '=======PRINT REQUIRED FIELD [${this.widget.hintText}]=======：$value');
+            }),
       ),
     );
   }
