@@ -116,7 +116,7 @@ class DbProvider {
   Future<List<Plant>> getPlants() async {
     var dbClient = await db;
     var maps = await dbClient.query(TABLE_PLANT);
-    var list = [];
+    List<Plant> list = [];
     maps.forEach((map) => list.add(Plant.fromMap(map)));
     return list;
   }
