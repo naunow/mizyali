@@ -15,52 +15,79 @@ class ChartArea extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: _wateringCycleInfo(wateringCycleList, context),
-      );
+    );
   }
 }
 
-_wateringCycleInfo(List<ViewPlantCycle> wateringCycleList, BuildContext context){
+_wateringCycleInfo(
+    List<ViewPlantCycle> wateringCycleList, BuildContext context) {
   var size = MediaQuery.of(context).size;
 
   List<Widget> result = [];
   wateringCycleList.forEach((cycle) {
     result.addAll([
-      Column(children: <Widget>[
-        //Placeholder(fallbackHeight: 58, fallbackWidth: 58,),
-        Container(width: size.width / 4,
-          height: size.width / 4,
-          color: AppColors.grey,
-          child: CycleChart(_chartSeries(cycle),animate: false, cycle: cycle,),),
-        Text(cycle.reminderTitle, style: Theme.of(context).textTheme.headline3,)
-      ],),
+      Column(
+        children: <Widget>[
+          //Placeholder(fallbackHeight: 58, fallbackWidth: 58,),
+          Container(
+            width: size.width / 4,
+            height: size.width / 4,
+            color: AppColors.grey,
+            child: CycleChart(
+              _chartSeries(cycle),
+              animate: false,
+              cycle: cycle,
+            ),
+          ),
+          Text(
+            cycle.reminderTitle,
+            style: Theme.of(context).textTheme.headline3,
+          )
+        ],
+      ),
     ]);
   });
 
   return result;
 }
 
-List<charts.Series<ViewPlantCycle, int>> _chartSeries(ViewPlantCycle cycle){
+List<charts.Series<ViewPlantCycle, int>> _chartSeries(ViewPlantCycle cycle) {
+  var lastDate = DateTime.parse(cycle.lastDoneDay);
+  var now = DateTime.now();
+  var difference = now.difference(lastDate);
+
   var data = [
     ViewPlantCycle()
       ..reminderCycleDays = cycle.reminderCycleDays
       ..reminderTitle = 'title 2'
-      ..color = cycle.color,
+      ..color = AppColors.orange,
     ViewPlantCycle()
-    ..reminderCycleDays = cycle.reminderCycleDays - 2
-    ..reminderTitle = 'title 2'
-    ..color = AppColors.grey,
+      ..reminderCycleDays = difference.inDays >= cycle.reminderCycleDays
+          ? cycle.reminderCycleDays
+          : difference.inDays
+      ..reminderTitle = 'title 2'
+      ..color = AppColors.dark_shadow
   ];
 
-  var series = [charts.Series<ViewPlantCycle, int>(
-    id: 'Watering',
-    domainFn: (ViewPlantCycle cycle, _) => cycle.reminderCycleDays,
-    measureFn: (ViewPlantCycle cycle, _) => cycle.reminderCycleDays,
-    data: data,
-    labelAccessorFn: (ViewPlantCycle cycle, _) => cycle.reminderTitle,
-    displayName: 'display name',
-    radiusPxFn: (ViewPlantCycle cycle, _) => 10,
-    colorFn: (ViewPlantCycle cycle, _) => charts.ColorUtil.fromDartColor(cycle.color),
-  )];
+  var color = [
+    AppColors.blue,
+    AppColors.orange,
+    AppColors.purple,
+  ];
+
+  var series = [
+    charts.Series<ViewPlantCycle, int>(
+      id: 'Watering',
+      domainFn: (ViewPlantCycle cycle, _) => cycle.reminderCycleDays,
+      measureFn: (ViewPlantCycle cycle, _) => cycle.reminderCycleDays,
+      data: data,
+      labelAccessorFn: (ViewPlantCycle cycle, _) => cycle.reminderTitle,
+      displayName: 'display name',
+      radiusPxFn: (ViewPlantCycle cycle, _) => 10,
+      colorFn: (ViewPlantCycle cycle, _) =>
+          charts.ColorUtil.fromDartColor(cycle.color),
+    )
+  ];
 
   return series;
 }

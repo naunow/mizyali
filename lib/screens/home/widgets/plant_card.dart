@@ -38,7 +38,9 @@ class _PlantCardState extends State<PlantCard> {
               PlantInfoDisplay(plantInfo: widget.plantInfo),
             ],
           ),
-          ChartArea(wateringCycleList: widget.plantInfo.wateringCycleList,),
+          ChartArea(
+            wateringCycleList: widget.plantInfo.wateringCycleList,
+          ),
         ],
       ),
     );

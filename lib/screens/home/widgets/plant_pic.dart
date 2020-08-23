@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mizyaliapp/configs/AppColors.dart';
 import 'package:mizyaliapp/widgets/circle_clipper.dart';
 
-
 class PlantPic extends StatelessWidget {
   final String imagePath;
 
@@ -16,7 +15,7 @@ class PlantPic extends StatelessWidget {
 //        backgroundImage: AssetImage('assets/images/cactus.jpg'),
 //        foregroundColor: Colors.orange);
 
-      Container(
+        Container(
       margin: EdgeInsets.only(right: 11),
       child: ClipPath(
         child: Container(

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mizyaliapp/models/cycle.dart';
 import 'package:mizyaliapp/models/plant.dart';
+import 'package:mizyaliapp/view_models/plant_info.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -89,9 +90,31 @@ class DbProvider {
       ..memo = "initial memo"
       ..name = "first name"
       ..startDate = DateTime(2020, 1, 1).toUtc().toString()
-      ..imagePath = "assets\images\cactus.jpg";
+      ..imagePath = "assets/images/cactus.jpg";
 
-    return await db.insert(TABLE_PLANT, samplePlant.toMap());
+    Cycle sampleCycle = Cycle()
+      ..plantId = 1
+      ..reminderCycleDays = 5
+      ..reminderTitle = "watering"
+      ..lastDoneDay = DateTime(2020, 8, 6).toUtc().toString();
+
+    Cycle sampleCycle2 = Cycle()
+      ..plantId = 1
+      ..reminderCycleDays = 3
+      ..reminderTitle = "cleaning"
+      ..lastDoneDay = DateTime(2020, 8, 4).toUtc().toString();
+
+    Cycle sampleCycle3 = Cycle()
+      ..plantId = 1
+      ..reminderCycleDays = 6
+      ..reminderTitle = "test"
+      ..lastDoneDay = DateTime(2020, 8, 1).toUtc().toString();
+
+    db.insert(TABLE_PLANT, samplePlant.toMap());
+    db.insert(TABLE_CYCLE, sampleCycle.toMap());
+    db.insert(TABLE_CYCLE, sampleCycle2.toMap());
+
+    return await db.insert(TABLE_CYCLE, sampleCycle3.toMap());
   }
 
   // =============================
@@ -142,6 +165,52 @@ class DbProvider {
     var cycle = await dbClient.query(TABLE_CYCLE,
         where: "id = ?", whereArgs: [id], limit: 1);
     return Cycle.fromMap(cycle.first);
+  }
+
+  Future<List<ViewPlant>> getViewPlants() async {
+    var dbClient = await db;
+    var sql = """
+      SELECT
+        *
+      FROM
+        $TABLE_PLANT
+    """;
+    var viewPlant = await dbClient.rawQuery(sql);
+    List<ViewPlant> viewPlantList = [];
+    viewPlant.forEach((element) {
+      viewPlantList.add(ViewPlant.fromMap(element));
+    });
+
+    var a = await dbClient.query(TABLE_CYCLE);
+    List<ViewPlantCycle> viewPlantCycle = [];
+    a.forEach((element) {
+      viewPlantCycle.add(ViewPlantCycle.fromMap(element));
+    });
+
+    viewPlantList.forEach((element) {
+      var cycle = viewPlantCycle.where((c) => c.plantId == element.id);
+      element.wateringCycleList.addAll(cycle);
+    });
+
+    // var sql = """
+    //   SELECT
+    //     *
+    //   FROM
+    //     $TABLE_PLANT
+    //   LEFT JOIN $TABLE_CYCLE ON
+    //     $TABLE_PLANT.$KEY_ID = $TABLE_CYCLE.$KEY_PLANTID
+    // """;
+
+    // var viewPlantMap = await dbClient.rawQuery(sql);
+    // List<ViewPlant> viewPlantList = [];
+    // viewPlantMap.forEach((element) {
+    //   var m = ViewPlant.fromMap(element);
+    //   viewPlantList.add(m);
+    // });
+    // var a = viewPlantList.toListViewPlant();
+
+    debugPrint(viewPlantList.toString());
+    return viewPlantList;
   }
 
   // =============================

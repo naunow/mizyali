@@ -48,19 +48,22 @@ class _HomeState extends State<Home> {
 
   Future<List<ViewPlant>> _getViewPlantList() async {
     List<ViewPlant> viewPlantList = [];
-    await dbHelper.getPlants().then((plantList) => {
-          plantList.forEach((plant) {
-            ViewPlant viewPlant = ViewPlant()
-              ..id = plant.id
-              ..imagePath = plant.imagePath
-              ..memo = plant.memo
-              ..name = plant.name
-              ..startDate = plant.startDate
-              ..wateringCycleList = [];
-            // viewPlantCycleList.where((e) => e.plantId == plant.id);
-            viewPlantList.add(viewPlant);
-          })
-        });
-    return viewPlantList;
+    return await dbHelper.getViewPlants();
+
+    // await dbHelper.getPlants().then((plantList) => {
+    //       plantList.forEach((plant) {
+    //         ViewPlant viewPlant = ViewPlant()
+    //           ..id = plant.id
+    //           ..imagePath = plant.imagePath
+    //           ..memo = plant.memo
+    //           ..name = plant.name
+    //           ..startDate = plant.startDate;
+
+    //         // ..wateringCycleList = [];
+    //         // viewPlantCycleList.where((e) => e.plantId == plant.id);
+    //         viewPlantList.add(viewPlant);
+    //       })
+    //     });
+    // return viewPlantList;
   }
 }
